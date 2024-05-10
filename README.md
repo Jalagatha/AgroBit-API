@@ -58,7 +58,7 @@ To install SuperTest,run npm install supertest from terminal
 * Email: jalagatha@gmail.com
 * Twitter: @jalagatha
 * github:@jalagatha
-* project repository: 
+* project repository:https://github.com/Jalagatha/AgroBit-API 
 
 # Acknowledgements:
 -
