@@ -21,29 +21,32 @@ model User {
   phone       String     @unique
   password    String
   productId   Int?
-  upDated DateTime? @updatedAt
-  dateTime DateTime? @default(now())
+  upDated     DateTime?  @updatedAt
+  dateTime    DateTime?  @default(now())
   salesId     Int?
   purchasesId Int?
-  image       Int?
-  title       Title      @default(farmer)
+  image       String?
+  title       Title      @default(worker)
   Product     Product?   @relation(fields: [productId], references: [id])
   Sales       Sales?     @relation(fields: [salesId], references: [id])
   Purchases   Purchases? @relation(fields: [purchasesId], references: [id])
 }
 
 enum Title {
-  farmer
+  worker
   owner
   customer
 }
 
 model Product {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
   price      String
-  upDated DateTime? @updatedAt
-  categories Category @default(Livestock)
+  upDated    DateTime? @updatedAt
+  category   Category  @default(Livestock)
+  salesId    Int?
+  purchaseId Int?
+  categories Category  @default(Livestock)
   users      User[]
 }
 
@@ -52,7 +55,7 @@ model Sales {
   quantity BigInt?
   price    BigInt?
   itemName String?
-  upDated DateTime? @updatedAt
+  upDated  DateTime? @updatedAt
   dateTime DateTime? @default(now())
   users    User[]
 }
@@ -62,7 +65,7 @@ model Purchases {
   quantity Int
   price    BigInt?
   name     String?
-  upDated DateTime? @updatedAt
+  upDated  DateTime? @updatedAt
   date     DateTime? @default(now())
   users    User[]
 }
