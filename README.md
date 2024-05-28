@@ -1,6 +1,28 @@
 # AgroBit
-Welcome to the quotes API. 
-* Quotes-API is a an Open API that allows authors to create quotes and manage their author profiles.
+Mugisha Ivan owns a farm that keeps live stock. 
+He uses workers to manage the farm Daily Farm activities
+that includes buying farm inputs, making sales of farm products, and recording new livestock.
+This API is a solution to automating the process of recording
+the farm activities;
+### The owner should be able to:
+-View animals on the farm
+-View workers on farm
+-Register new workersB
+-Views performed sales
+-views purchased products
+
+### The workers should be able to:
+-Record new livestock information
+-Record sales
+-Record purchases
+
+This is the  API collection Link having most of the methods to access some of the above requirements.
+Also; the farm is located in a remote area with poor connection, so recording new records (new animals, sales
+and purchases) can be done offline and when the application gets good connection, the records synced in the
+background
+The application will implement the following concepts:
+-A Backend API and a User interface and experience that
+
 ## API Endpoints
 The following endpoints are available in the AgroBit
 ## Routes to use
