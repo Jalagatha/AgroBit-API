@@ -41,10 +41,10 @@ enum Title {
 model Product {
   id         Int       @id @default(autoincrement())
   name       String
-  price      String
+  price      Int
   upDated    DateTime? @updatedAt
-  category   Category  @default(Livestock)
   salesId    Int?
+  image       String?
   purchaseId Int?
   categories Category  @default(Livestock)
   users      User[]
@@ -52,8 +52,8 @@ model Product {
 
 model Sales {
   id       Int       @id @default(autoincrement())
-  quantity BigInt?
-  price    BigInt?
+  quantity Int?
+  price    Int?
   itemName String?
   upDated  DateTime? @updatedAt
   dateTime DateTime? @default(now())
@@ -63,7 +63,7 @@ model Sales {
 model Purchases {
   id       Int       @id @default(autoincrement())
   quantity Int
-  price    BigInt?
+  price    String?
   name     String?
   upDated  DateTime? @updatedAt
   date     DateTime? @default(now())

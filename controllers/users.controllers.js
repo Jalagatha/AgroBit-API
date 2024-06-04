@@ -18,8 +18,6 @@ const getAllUsers = async (req, res) => {
         l_name: true,
         f_name:true,
         phone: true,
-        salesId:true,
-        purchasesId:true,
         title: true,
       },
     });
@@ -125,11 +123,11 @@ const createUser = async (req, res) => {
   if (!req.body) {
     return res
       .status(StatusCodes.NOT_ACCEPTABLE)
-      .json({ msg: " Author Data not provided!" });
+      .json({ msg: " User Data not provided!" });
   }
   try {
     let { phone, password } = req.body;
-    const user = await prisma.author.findUnique({
+    const user = await prisma.user.findUnique({
       where: { phone: phone },
     });
 
@@ -174,7 +172,7 @@ const deleteUser = async (req, res) => {
         .json({ msg: "User not found" });
     }
 
-    await prisma.author.delete({
+    await prisma.user.delete({
       where: { id: Number(id) },
     });
 

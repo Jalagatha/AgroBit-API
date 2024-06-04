@@ -1,63 +1,91 @@
-import { PrismaClient } from "@prisma/client";
+import { Category, PrismaClient } from "@prisma/client";
 import { StatusCodes } from "http-status-codes";
 
 const prisma = new PrismaClient();
 //all user
-
+//get quote by id
 const getProducts = async (req, res) => {
   try {
-    const product = await prisma.product.findMany();
-    return res.status(StatusCodes.OK).json(product);
-  } catch (error) {
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ error, message: "Error No Results Found" });
-  }
-};
-//get product by id
-const getProductByID = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const product = await prisma.product.findUnique({
-      where: { id: Number(id) },
+    const id = +req.params.id;
+    const product = await prisma.product.findMany({
+      where: {
+        id,
+      },
+      include: {
+        user: true,
+      },
     });
-    if (!product) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ message: "Product not found" });
-    }
-    return res.status(StatusCodes.OK).json(user);
-  } catch (error) {
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "No Products Found" });
+    res.status(StatusCodes.CREATED).json({
+      message: "Request successfully",product,
+    });
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Can't get Products!" });
   }
 };
 
+
+const getProductById = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    const pdt = await prisma.product.findUnique({
+      where: {
+        id:id,
+      },
+      
+    });
+    res.status(StatusCodes.CREATED).json({
+      message: "successfully",
+       pdt,
+    });
+  } catch (err) {
+    res.status(StatusCodes.BAD_REQUEST).json({ message: "Can't get Product!" });
+  }
+  
+  
+
+     
+}
+
 const createProduct = async (req, res) => {
-        let pdt = await prisma.product.create({
-            data: req.body
-            
-        })
-        res.status(StatusCodes.CREATED).json({message: "Product created", pdt})
-        console.log(pdt);
-    
-};
+
+
+
+  // const id=+req.params.id
+  try {
+    const newPdt  = await prisma.product.create({
+      
+      // data: {
+      //   name:req.body.name,
+      //   price:req.body.price,
+        
+      // }
+      data: req.body
+  })
+  res.status(StatusCodes.CREATED).json({message: "Product created", newPdt});
+  
+  } catch (error) {
+    console.log(error);
+    res.status(StatusCodes.BAD_REQUEST).json({message: "Failure"});
+  }
+  }
+
+
 //update Product
 const updateProduct = async (req, res) => {
     const id = +req.params.id;
     try {
-      const updateProduct = await prisma.product.delete({
+      const updatePdt = await prisma.product.update({
         where: {
-          id:id
-        },include:{
-
-
+          id
+        },data:{
+          name:req.body.name,
+          price:req.body.price,
+          
         }
       });
-      res.json({ message: " Record Deleted", data: deleteProduct });
+      res.json({ message: " Record Updated", data: updatePdt });
     } catch (err) {
-      res.json({ message: "Product Not Deleted", data: err });
+      res.json({ message: "Product Not Updated", data: err });
     }
 
 };
@@ -80,7 +108,7 @@ const deleteProduct = async (req, res) => {
 
 export const products={
     getProducts,
-    getProductByID,
+    getProductById,
     createProduct,
     updateProduct,
     deleteProduct,
