@@ -20,8 +20,8 @@ app.use( cors({
 //ROUTES
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products",animalRouter);
-app.get("/", (req, res) => {
-  res.status(StatusCodes.OK).json({ message: "Welcome to the AgroBit API" });
+app.get("/api/v1/", (req, res) => {
+  res.status(StatusCodes.OK).json({ message: "Welcome to the Agro-Bit API" });
 });
 
 export default app;
